@@ -1,0 +1,16 @@
+file_comparison Version 1.0 4/26/2023
+GENERAL USAGE NOTES
+---------------------------------------------------------------------------------------------------------------------
+This program compares allele frequency tables published in Buckleton, John, James Curran, Jérôme Goudet, Duncan Taylor, Alexandre Thiery, and B.S. Weir. 2016. “Population-Specific F Values for Forensic STR Markers: A Worldwide Survey.” Forensic Science International: Genetics 23 (July): 91–100. https://doi.org/10.1016/j.fsigen.2016.03.004. to the tables published in the sited source papers.
+1) Navigates to the directory containing the files you wish to compare
+2) Lists the first set of files to compare
+3) Creates an indexed array of the names of the files to compare
+4) Lists the second set of files to compare
+5) Creates an indexed array of the names of the files to compare
+6) Compares the content of two files at the same index using the sdiff function and saves the results to a text file
+INSTALLATION
+---------------------------------------------------------------------------------------------------------------------
+This program is written in the Bash language and can be run in any Unix-like terminal.
+---------------------------------------------------------------------------------------------------------------------
+For inquiries please contact
+rori@uoregon.edu and hmthorner@gwu.edu
