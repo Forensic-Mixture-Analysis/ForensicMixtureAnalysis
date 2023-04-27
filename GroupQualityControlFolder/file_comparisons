@@ -1,0 +1,19 @@
+cd ~/Desktop/Rohlfs.LTA.273.populations
+
+ls *_test.txt
+
+declare -a population_files
+population_files=($(ls *_test.txt))
+
+ls *_source.txt
+
+declare -a source_files
+source_files=($(ls *_source.txt))
+
+touch file_comparisons
+
+for index in ${!population_files[*]}
+do
+  echo "${population_files[$index]} compared to ${source_files[$index]}" >> file_comparisons
+  sdiff ${population_files[$index]} ${source_files[$index]} >> file_comparisons
+done
