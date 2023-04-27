@@ -1,4 +1,4 @@
-file_comparison Version 1.0 4/26/2023
+file_comparisons Version 1.0 4/26/2023
 GENERAL USAGE NOTES
 ---------------------------------------------------------------------------------------------------------------------
 This program compares allele frequency tables published in Buckleton, John, James Curran, Jérôme Goudet, Duncan Taylor, Alexandre Thiery, and B.S. Weir. 2016. “Population-Specific F Values for Forensic STR Markers: A Worldwide Survey.” Forensic Science International: Genetics 23 (July): 91–100. https://doi.org/10.1016/j.fsigen.2016.03.004. to the tables published in the sited source papers.
