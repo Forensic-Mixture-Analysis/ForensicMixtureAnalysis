@@ -261,11 +261,11 @@ rownames(Power_Matrix) = PopAEHs[,2] # Group Genetic Diversity
 Power_DF = as.data.frame(Power_Matrix) # Turn into dataframe 
 
 # create a supplemental table that will be exported 
-Draft_table = matrix(ncol = 3, nrow = 4) 
+supplemental_table = matrix(ncol = 3, nrow = 4) 
 Genetic_Diversity = c(0.766983,0.78318,0.777698,0.777698) 
 Power_Estimate = c(0.99999,0.99999,0.99999,0.99999)
 contribs = c(5,5,5,6)
-Draft_table[,1] = Genetic_Diversity
-Draft_table[,2] = Power_Estimate
-Draft_table[,3] = contribs
-colnames(Draft_table) = c("Genetic Diversity", "Power Estimate", "Contributors")
+supplemental_table[,1] = Genetic_Diversity
+supplemental_table[,2] = Power_Estimate
+supplemental_table[,3] = contribs
+colnames(supplemental_table) = c("Genetic Diversity", "Power Estimate", "Contributors")
