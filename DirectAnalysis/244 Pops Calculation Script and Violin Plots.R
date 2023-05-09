@@ -125,9 +125,7 @@ max(FPRMatrix[,5]) # returns highest values
 which(FPRMatrix == 0.03286, arr.ind = T) # locate the indices where highest val occur
 pops.for.sims[155] # returns population name 
 ######################## CREATE LOG VIOLIN PLOT FOR ALL LRS VS NUMBER OF CONTRIBS ###############################
-eight_colors = colorRampPalette(c("pink", "green")) # color gradient for 8 pops
-eight_colors(8) 
-p1 <- {
+violin_plot <- {
   ggplot() + geom_violin(data = FPR_DF, aes(x=as.numeric(contribs), y = value, 
   fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + ylab("False positive rate") + 
     theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -144,13 +142,13 @@ p1 <- {
                       values = rainbow(8)) + guides(fill = "none")
 }
 
-p1 # violin plot of LRs with quantile populations 
-p2 =p1 + scale_y_continuous(trans = "log10") + labs(y=expression("False Positive Rate"), 
+violin_plot # violin plot of LRs with quantile populations 
+log_violin_plot = violin_plot + scale_y_continuous(trans = "log10") + labs(y=expression("False Positive Rate"), 
                                                     x = expression("Number of Contributors"))
-p2 # view the log violin plot 
+log_violin_plot # view the log violin plot 
 
 ########### Inverted color [black background] plot ###################################
-p3 <- {
+p1 <- {
   ggplot() + geom_violin(data = FPR_DF, aes(x=as.numeric(contribs), y = value, 
                                            fill = contribs, ), scale = "width", alpha = 0.90) +  xlab("Number of contributors") + ylab("False positive rate") +
     theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -170,10 +168,10 @@ p3 <- {
                        values = rainbow(8)) + guides(fill = "none")
 }
 
-p3 # linear LR plot with black background
-p4 =p3 + scale_y_continuous(trans = "log10") + labs(y=expression(atop("False Positive Rate")), 
+p1 # linear LR plot with black background
+p2 =p1 + scale_y_continuous(trans = "log10") + labs(y=expression(atop("False Positive Rate")), 
                                                     x = expression("Number of Contributors")) # log plot
-p4 # log violin plot with black background
+p2 # log violin plot with black background
 
 
 ############################## GENETIC DIVERSITY VS FALSE POSITIVE RATE GRAPH ###################################################################################
