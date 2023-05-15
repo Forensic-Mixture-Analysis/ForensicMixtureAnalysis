@@ -267,3 +267,6 @@ supplemental_table[,1] = Genetic_Diversity
 supplemental_table[,2] = Power_Estimate
 supplemental_table[,3] = contribs
 colnames(supplemental_table) = c("Genetic Diversity", "Power Estimate", "Contributors")
+
+########################### FBI GROUP PLOTS ########################################################
+
