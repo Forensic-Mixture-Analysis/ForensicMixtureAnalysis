@@ -1,0 +1,14 @@
+Program (R) Version 3.6.1
+
+README
+
+Function: This script was used as a quality check to confirm that each allele frequency in the 13 loci (CSF1PO,D3S1358,D5S818,D7S820, D8S1179, D13S317, D16S539, D18S51, D21S11, FGA, TH01, TPOX, and VWA) sum to 1. 
+
+Necessary Package: readr
+
+1. The script first defines the vector of the 13 loci, puts each population file in a list to be looped through later, and sets empty vectors for sum ranges
+
+2. A forloop goes through each population file in the population list, reading in the file, and adding all of the allele frequency values in each of the 13 loci columns. A counter is used to count how many loci out of 13 summed to 1 or the specified range.
+
+3. If the counter is equal to 13, the population will be concatenated to the corresponding range empty vector 
+
