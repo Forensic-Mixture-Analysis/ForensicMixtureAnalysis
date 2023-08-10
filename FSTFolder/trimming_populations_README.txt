@@ -18,9 +18,6 @@ populations still in the mix.
 
 ###Understanding the Script###
 
-#Can be in a separate section (anything to do with how script works)#
-#In another paragraph make sure to talk about the outputs in a separate section#
-
 #Setup#
 In order to run the script, it must import the random, numpy and csv built in modules.
 
@@ -34,7 +31,6 @@ the FST matrix and in the population names list.
 
 The first thing the script does is delete (set to 100) all values that fall on the 
 diagonal. This is because this is where populations are being compared to themselves.
-
 
 Next, it uses len(a) (for simplicity, a is the name of the matrix)
 to find the number of rows of the matrix and len(a[0])
