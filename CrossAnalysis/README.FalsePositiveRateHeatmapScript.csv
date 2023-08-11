@@ -1,0 +1,61 @@
+
+
+###READ ME - False Positive Rate Heatmap Script###
+
+Function: The purpose of this script is to visualize all of the POI- misspecified reference group results across a given number of 
+contributors in the mixture. The script identifies the groups used in the analysis and reads the results from those analyses. 
+For a given set of misspecified reference group simulations, it calculates the percentage of simulations where the log(LR) was 
+greater than 0 (in other words, the false positive rate). This process repeats until all results are read in, then compiled into 
+a single dataframe. Next, it gathers the results from the correctly specified reference group simulations and calculates the false
+positive rate. These results are also stored in the same dataframe. Groups are renamed to their respective genetic diversity values,
+then the dataframe is converted to an array. An initial heatmap can be generated at this point, which sorts groups by their genetic 
+diversities. Groups can also be sorted by their FST values, which requires a dendrogram to be made and included in the final heatmap.
+
+###UNDERSTANDING THE SCRIPT###
+
+#Setup#
+In order to run the script, the following packages are required:
+stringr
+reshape2
+tidyverse
+tidyr
+ggplot2
+ggdendro
+grid
+gridExtra
+cowplot
+
+The following files are required:
+FSTarray - a matrix where the rows and columns are the groups and the cells are their respective FST values.
+pops_54 - this is a file that specifies which groups are used in the misspecified reference group analysis.
+CrossAnalysisResults - this is a folder that contains all the misspecified reference group simulation results. 
+straight_results - the results from the correctly specified reference group simulations. Make sure to specify the number of contributors interested.
+pops_aeh_sorted - this is a file that has all the groups organized by their genetic diversities.
+
+Creating the dataframe:
+The script first loads the packages and then sets the correct directory. It identifies the groups of interest, then gathers
+the results of the analysis one simulation group at a time. This is done by reading in one file at a time, calculating the 
+false positive rate by summing all log(LR) > 0, then dividing by the total number of simulations. After storing the results,
+it moves on to the next simulation group until the results of all simulation groups are compiled. Lastly, the results are converted
+into a matrix.
+
+Filling in the correctly specified reference group results:
+Because the results of the correctly specified reference group simulations are stored in a different file, they need to be 
+extracted and inserted into the dataframe. Prior to this step, the dataframe has NA values along the diagonal when the simulation
+group and the reference group are the same. The false positive rates are calculated the same way as the misspecified reference 
+group simulations. 
+
+Renaming the groups:
+Groups are renamed to their respective genetic diversities, and the genetic diversities are shortened to 5 significant figures.
+
+Creating the heatmap:
+The matrix is converted to an array using the pivot_longer() function. This allows us to then use ggplot2’s geom_tile function
+to generate a heatmap where the rows and columns are the group’s genetic diversities in order, and the fill are the false 
+positive rates.
+
+Adding a dendrogram:
+Optionally, a dendrogram may be supplied if the user wishes to create a heatmap where groups are sorted by their FST values. 
+This is done by creating a dendrogram of the groups using their FST values. A visual dendrogram is generated via ggplot2’s 
+ggdendrogram() function. In order to align the dendrogram to the heatmap, we extract the order of the groups from the dendrogram,
+then re-organize the groups of the heatmap accordingly. A new heatmap can now be generated with groups sorted by FST, though the 
+size of the heatmap may need to be adjusted due to the addition of the dendrogram.
