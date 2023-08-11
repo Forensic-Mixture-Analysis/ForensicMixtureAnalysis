@@ -1,5 +1,3 @@
-
-
 ###READ ME - False Positive Rate Heatmap Script###
 
 Function: The purpose of this script is to visualize all of the POI- misspecified reference group results across a given number of 
