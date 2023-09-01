@@ -498,5 +498,5 @@ saveRDS(results, file = filename)
 
 ## Save Total Runtime it took to run this simulation
 end = Sys.time()
-total_time = start - end
-saveRDS(total_time, file = time_filepath)
+total_time = as.numeric(end-start)
+saveRDS(total_time, file = time_filename)
