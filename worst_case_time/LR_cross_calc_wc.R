@@ -531,7 +531,7 @@ if (is.a.truecontrib==1){
                     opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribINmix.rds')
   
   time_filename = paste0('results/time_results/LRCross_', pop_label, '_seed_', 
-                         opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribINmix.rds')
+                         opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribINmix_TIME.rds')
   
 }else{
   
@@ -539,7 +539,7 @@ if (is.a.truecontrib==1){
                     opt$rand_seed,'_', num_sims, '_', num_contrib,'_contribNotINmix.rds') 
   
   time_filename = paste0('results/time_results/LRCross_', pop_label, '_seed_', 
-                         opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribNotINmix.rds')
+                         opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribNotINmix_TIME.rds')
 }
 
 saveRDS(resultsdict, file = filename)

@@ -18,12 +18,6 @@ echo $t
 echo $s
 echo $c
 
-# Input parameters 
-t=1
-s=1000
-c=2
-
-
 # Make a file directory for this jobs output, jobs 2-54 will throw this as an error but it will move on lmao
 output_dir=results/LR_Cross_${t}_${s}_${c}
 mkdir $output_dir

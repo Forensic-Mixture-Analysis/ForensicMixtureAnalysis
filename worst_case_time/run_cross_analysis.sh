@@ -14,9 +14,6 @@ t=$type_sim
 s=$sims
 c=$cont
 
-echo $t
-echo $s
-echo $c
 
 pop_list=("Angola.1_new.csv" "Aust.Abor.2_new.csv" "CearaBrazil.232_new.csv" "China.10_new.csv" "China.11_new.csv" "Cree.243_source_new.csv" "Derung.249_new.csv" "E.Slovak.5_new.csv" "ETimor.229_new.csv" "Eygpt.2_new.csv"
            "FBIAfAm_expanded_new.csv" "FBICauc_expanded_new.csv" "FBISWHisp_expanded_new.csv" "FBITrinidad_expanded_new.csv"
