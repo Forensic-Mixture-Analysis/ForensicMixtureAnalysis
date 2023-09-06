@@ -483,14 +483,14 @@ if (is.a.truecontrib==1){
   filename = paste0(opt$out_prefix, '/LRDirect_', pop_label, '_seed_', 
                     opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribINmix.rds')
   
-  time_filename = paste0('results/time_results/LRCross_', pop_label, '_seed_', 
+  time_filename = paste0('results/time_results/LRDirect_', pop_label, '_seed_', 
                          opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribINmix_TIME.rds')
   
 }else{
   filename = paste0(opt$out_prefix, '/LRDirect_', pop_label, '_seed_', 
                     opt$rand_seed,'_', num_sims, '_', num_contrib,'_contribNotINmix.rds')
   
-  time_filename = paste0('results/time_results/LRCross_', pop_label, '_seed_', 
+  time_filename = paste0('results/time_results/LRDirect_', pop_label, '_seed_', 
                          opt$rand_seed,'_',num_sims, '_', num_contrib,'_contribNotINmix_TIME.rds')
   
 }
