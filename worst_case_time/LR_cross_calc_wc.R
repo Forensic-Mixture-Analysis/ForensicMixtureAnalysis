@@ -546,6 +546,6 @@ saveRDS(resultsdict, file = filename)
 
 ## Save Total Runtime it took to run this simulation
 end = Sys.time()
-total_time = as.numeric(end-start)
+total_time =  as.numeric(difftime(end, start, units = "hours"))
 saveRDS(total_time, file = time_filename)
 
