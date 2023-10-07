@@ -1,3 +1,3 @@
-# LowTemplateAnalysis
-Dr. Rori Rohlfs' Low Template Analysis Project Group
+# ForensicMixtureAnalysis
+Dr. Rori Rohlfs' Forensic Mixture Analysis Project Group
 
