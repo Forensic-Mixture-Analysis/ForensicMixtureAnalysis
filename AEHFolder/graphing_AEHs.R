@@ -1,4 +1,5 @@
-#Graphing AEH distribution for 244 populations and 54 populations
+#Updated 8/1/2024
+#Graphing AEH distribution for populations and 54 populations
 
 library(ggplot2)
 library(dplyr)
@@ -8,47 +9,63 @@ library(plotly)
 library(gridExtra)
 library(cowplot)
 
-setwd("C:/Users/evanh/Dropbox/PC/Documents/FST Lab Work/pop_results")
-AEH_file <- read.csv("PopAEHsSorted.csv")
-AEH_54_file <- read.csv("54_pops_to_run.csv")
+#set working directory
+setwd("/path/to/directory")
+#read in AEH file
+AEH_file <- read.csv("Average_Expected_Hetero_informed_consent_with_fbi.csv")
+
+#identify which groups should be kept
+informed_consent <- c('Berber.1_new.csv', 'China.5_new.csv', 
+                      'Cree.243_source_new.csv', 'Eygpt.1_new.csv',
+                      'Eygpt.2_new.csv', 'Hungary.3_new.csv',
+                      'Macedonia.2_new.csv', 'Maldives_new.csv',
+                      'NahuaPuebla.240_new.csv', 'ParanaBrazil.241_new.csv',
+                      'Romani.6_new.csv', 'S.Africa.2_new.csv', 
+                      'Salishan.243_source_new.csv', 'San_new.csv', 
+                      'Spain.4_new.csv', 'Tibet.6_new.csv', 'Tzeltal.240_new.csv',
+                      'WNahua.240_new.csv', "FBIAfAm_expanded_new.csv",
+                      "FBIApache_expanded_new.csv", "FBICauc_expanded_new.csv",
+                      "FBIGuamFilipinos_expanded_new.csv", "FBINavajo_expanded_new.csv",
+                      "FBISEHisp_expanded_new.csv", "FBISWHisp_expanded_new.csv",
+                      "FBITrinidad_expanded_new.csv")
+
+#create a separate dataframe for mis-specified reference group analysis
+AEH_Cross <- AEH_file[AEH_file$X %in% informed_consent, ]
 
 #Labeling the columns
-colnames(AEH_file) <- c("popnumber", "popname", "AverageExpHet")
-colnames(AEH_54_file) <- c("X", "popname")
+colnames(AEH_file) <- c("popname", "AverageExpHet")
+colnames(AEH_Cross) <- c("popname", "AverageExpHet")
 
-#244 plot + beautification
-AEH_244 <- ggplot() +
+#Correctly specified reference group plot
+AEH_all <- ggplot() +
   geom_histogram(data = AEH_file, aes(AverageExpHet), 
                  color = "blue", fill = "light pink") +
   xlab("Genetic Diversity") +
-  ylab("Number of Groups") 
-#  Dark mode
-#  theme(panel.grid.major = element_blank(), 
-#        panel.grid.minor = element_blank(),
-#        panel.background = element_rect(fill = "black"),
-#        plot.background = element_rect(fill = "black"),
-#        axis.text = element_text(colour = "white"),
-#        axis.title = element_text(colour = "white"),
-#        axis.line = element_line(colour = "white"))
+  ylab("Number of Groups") +
+#Dark mode
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "black"),
+        plot.background = element_rect(fill = "black"),
+        axis.text = element_text(colour = "white", face = "bold"),
+        axis.title = element_text(colour = "white", face = "bold"),
+        axis.line = element_line(colour = "white"))
 
-AEH_244
+AEH_all
 
-#Trimming it down to 54 pops
-pops_to_remove <- setdiff(AEH_file$popname, AEH_54_file$popname)
-AEH_54 <- AEH_file[!AEH_file$popname %in% pops_to_remove,]
-
-AEH_54 <- ggplot() +
-  geom_histogram(data = AEH_54, aes(AverageExpHet),
+#Mis-specified reference group plot
+AEH_cross_plot <- ggplot() +
+  geom_histogram(data = AEH_Cross, aes(AverageExpHet),
                  color = "blue", fill = "light pink") +
   xlab("Genetic Diversity") +
-  ylab("Number of Groups")
+  ylab("Number of Groups") +
 #  DARK MODE
-#  theme(panel.grid.major = element_blank(), 
-#        panel.grid.minor = element_blank(),
-#        panel.background = element_rect(fill = "black"),
-#        plot.background = element_rect(fill = "black"),
-#        axis.text = element_text(colour = "white"),
-#        axis.title = element_text(colour = "white"),
-#        axis.line = element_line(colour = "white"))
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "black"),
+        plot.background = element_rect(fill = "black"),
+        axis.text = element_text(colour = "white", face = "bold"),
+        axis.title = element_text(colour = "white", face = "bold"),
+        axis.line = element_line(colour = "white"))
 
-AEH_54
+AEH_cross_plot
