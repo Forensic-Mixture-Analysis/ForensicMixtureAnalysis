@@ -1,3 +1,6 @@
+#FPR by FST Scatterplot, 6 contributors
+#Updated 8/7/2024
+
 #Necessary Libraries
 library(ggplot2)
 library(tidyr)
