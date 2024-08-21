@@ -1,13 +1,18 @@
-###READ ME - False Positive Rate Heatmap Script###
+###READ ME - Cross Analysis Data Visualization Scripts###
 
-Function: The purpose of this script is to visualize all of the POI- misspecified reference group results across a given number of 
-contributors in the mixture. The script identifies the groups used in the analysis and reads the results from those analyses. 
-For a given set of misspecified reference group simulations, it calculates the percentage of simulations where the log(LR) was 
-greater than 0 (in other words, the false positive rate). This process repeats until all results are read in, then compiled into 
-a single dataframe. Next, it gathers the results from the correctly specified reference group simulations and calculates the false
-positive rate. These results are also stored in the same dataframe. Groups are renamed to their respective genetic diversity values,
-then the dataframe is converted to an array. An initial heatmap can be generated at this point, which sorts groups by their genetic 
-diversities. Groups can also be sorted by their FST values, which requires a dendrogram to be made and included in the final heatmap.
+This section is the README for the following scripts:
+Cross_Analysis_Heatmap.R
+FBI_FPR_Heatmaps.R
+InMix_Heatmaps.R*
+
+Function: The purpose of these scripts are to visualize all of the misspecified reference group results. 
+The scripts identify the groups used in the analysis and reads the results from those analyses. For a given
+set of misspecified reference group simulations, it calculates the percentage of simulations where the log(LR)
+was greater than 0 (in other words, the false positive rate). This process repeats until all results are read in,
+then compiled into a single dataframe. Groups are renamed to their respective genetic diversity values, then the
+dataframe is converted to an array. An initial heatmap can be generated at this point, which sorts groups by their
+genetic diversities. Groups can also be sorted by their FST values, which requires a dendrogram to be made and 
+included in the final heatmap.
 
 ###UNDERSTANDING THE SCRIPT###
 
@@ -25,9 +30,7 @@ cowplot
 
 The following files are required:
 FSTarray - a matrix where the rows and columns are the groups and the cells are their respective FST values.
-pops_54 - this is a file that specifies which groups are used in the misspecified reference group analysis.
-CrossAnalysisResults - this is a folder that contains all the misspecified reference group simulation results. 
-straight_results - the results from the correctly specified reference group simulations. Make sure to specify the number of contributors interested.
+pops_26 - this is a file that specifies which groups are used in the misspecified reference group analysis.
 pops_aeh_sorted - this is a file that has all the groups organized by their genetic diversities.
 
 Creating the dataframe:
@@ -36,12 +39,6 @@ the results of the analysis one simulation group at a time. This is done by read
 false positive rate by summing all log(LR) > 0, then dividing by the total number of simulations. After storing the results,
 it moves on to the next simulation group until the results of all simulation groups are compiled. Lastly, the results are converted
 into a matrix.
-
-Filling in the correctly specified reference group results:
-Because the results of the correctly specified reference group simulations are stored in a different file, they need to be 
-extracted and inserted into the dataframe. Prior to this step, the dataframe has NA values along the diagonal when the simulation
-group and the reference group are the same. The false positive rates are calculated the same way as the misspecified reference 
-group simulations. 
 
 Renaming the groups:
 Groups are renamed to their respective genetic diversities, and the genetic diversities are shortened to 5 significant figures.
@@ -57,3 +54,6 @@ This is done by creating a dendrogram of the groups using their FST values. A vi
 ggdendrogram() function. In order to align the dendrogram to the heatmap, we extract the order of the groups from the dendrogram,
 then re-organize the groups of the heatmap accordingly. A new heatmap can now be generated with groups sorted by FST, though the 
 size of the heatmap may need to be adjusted due to the addition of the dendrogram.
+
+*Note that for the InMix_Heatmaps.R script, the logic is the same as above, except we are calculating for instances where log(LR) < 0,
+and instead of false positive rate, we are calculating Power. 
