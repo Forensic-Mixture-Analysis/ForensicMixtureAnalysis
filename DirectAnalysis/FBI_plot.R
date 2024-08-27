@@ -35,26 +35,7 @@ for (i in 1:dim(FPR_matrix)[1]) { # rows
 #FPR_matrix
 # load AEH and group names 
 informed_consent = read_csv("Informed_Consent_AEHs.csv")
-#informed_consentGD = informed_consent[,2]
-######### SUBSET DATA TO ONLY INCLUDE INFORMED CONSENT POPULATIONS ################
-# turn the FPR matrix into a DF
-FPR_DF <- as.data.frame(FPR_matrix) 
-# assign column names 
-colnames(FPR_DF) <- c(c(2,3,4,5,6)) 
-#FPR_DF
-# filter the informed consent groups alphabtetically 
-informed_consent = informed_consent[order(informed_consent$...1),]
-# Assign row names in the FPR_DF
-rownames(FPR_DF) = informed_consent$`Average Expected Heterozygosity`
-#informed_consent$`Average Expected Heterozygosity`
-# Transpose the data frame -- # flips rows and columns while maintaining DF structure
-FPR_DF <- as.data.frame(t(FPR_DF)) 
-# creates a key name to call contribs
-FPR_DF$contribs <- rownames(FPR_DF)
-#FPR_DF
-# restructures df 
-FPR_DF <- melt(FPR_DF, id.vars='contribs') 
-############################## BUILD FBI DATA ###########################################\
+############################## BUILD FBI DATA ###########################################
 # Gather FBI data into one array 
 FBI_groups <-{
   # FBI_African_American AEH = 0.7899474
