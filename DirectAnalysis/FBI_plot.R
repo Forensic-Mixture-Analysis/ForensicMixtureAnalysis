@@ -35,6 +35,8 @@ for (i in 1:dim(FPR_matrix)[1]) { # rows
 #FPR_matrix
 # load AEH and group names 
 informed_consent = read_csv("Informed_Consent_AEHs.csv")
+# reorder the AEH file alphabetically
+informed_consent = informed_consent[order(informed_consent$...1),]
 ############################## BUILD FBI DATA ###########################################
 # Gather FBI data into one array 
 FBI_groups <-{
@@ -92,7 +94,7 @@ FBI_Plot <- {
   "Apache", "Caucasian", "Filipino", "Navajo", "SE Hispanic", "SW Hispanic", 
   "Trinidadian"), values= colors)  + scale_y_continuous(trans = "log10")
 }
-# view final plot 
-FBI_Plot # linear plot of the FBI FPRs 
+# view final plot, y-axis is log scaled
+FBI_Plot 
 
 
