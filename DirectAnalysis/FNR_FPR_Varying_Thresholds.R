@@ -266,79 +266,50 @@ fn_0_plot
 # False Negative Rate Distribution Violin Plot when threshold is >100
 fn_2_plot <- {
   ggplot() + geom_violin(data = fn_df_2, aes(x= as.numeric(contribs), y = value, 
-  fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + ylab("Power") + 
-    theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-    panel.background = element_blank(), axis.line = element_line(colour = "black")) + scale_fill_manual(values = c("#BCE4D8",
-    "#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fn_2_dataEightCombined_df, aes(x=as.numeric(contribs), 
-    y = value, color = variable)) + geom_line(data = fn_2_dataEightCombined_df, aes(x=as.numeric(contribs), y = value,
-    color = variable)) + xlab("Number of Contributors") + ylab("Power") + labs(colour = "Genetic Diversity", size = 4) +
-    theme(text = element_text(size = 12), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-    panel.background = element_blank(),axis.line = element_line(colour = "black"), axis.text = element_text(size = 12), 
-    legend.position = c(0.40,0.30), legend.text = element_text(size =12), legend.title = element_text(size = 12), 
-    legend.box.background = element_rect(color = "black", size = 1), legend.key = element_rect(fill = "white"), 
-    legend.key.height = unit(6, "pt"))  + scale_color_manual(labels = c("0.674", "0.741", "0.773", "0.779", "0.784",
-    " 0.787", " 0.796", "0.804"), values = rainbow(8)) + guides(fill = "none")
+  fill = contribs, ), scale = "width", alpha = 0.30) + theme(legend.position = "none",
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"), axis.title.x = element_blank(), axis.title.y = element_blank(),
+    axis.text = element_text(size=12)) + 
+    scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) + 
+    geom_point(data = fn_2_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) + 
+    geom_line(data = fn_2_dataEightCombined_df, aes(x=as.numeric(contribs), y = value,
+    color = variable)) + scale_color_manual(values = rainbow(8)) + guides(fill = "none") +
+    scale_y_continuous(trans = "log10",  labels = scientific_10)  
 }
-# view the violin plot, y-scale is linear 
-fn_2_plot 
-# turns the y-axis into log scale, changes format of y-axis labels, and removes axes titles and legend
-fn_2_plot =fn_2_plot + scale_y_continuous(trans = "log10",  labels = scientific_10)  + labs(y=expression("Power"), 
- x = expression("Number of Contributors")) + theme(legend.position = "none", axis.title.x = element_blank(), 
- axis.title.y = element_blank(), axis.text.x = element_blank())
-# view the final version of the plot 
+# plot has log scaled y-axis and no legend 
 fn_2_plot
 
-# False Negative Distribution Violin Plot when threshold < 10k 
+# False Negative Rate Distribution Violin Plot when threshold is >10k
 fn_4_plot <- {
   ggplot() + geom_violin(data = fn_df_4, aes(x= as.numeric(contribs), y = value, 
-                                             fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + ylab("Power") + 
-    theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-          panel.background = element_blank(), 
-          axis.line = element_line(colour = "black")) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) +
-    geom_point(data = fn_4_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-    geom_line(data = fn_4_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-    xlab("Number of Contributors") + ylab("Power") + labs(colour = "Genetic Diversity", size = 4) +
-    theme(text = element_text(size = 12), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 12), legend.position = c(0.40,0.30), legend.text = element_text(size =12), legend.title = element_text(size = 12), legend.box.background = element_rect(color = "black", size = 1), 
-          legend.key = element_rect(fill = "white"), legend.key.height = unit(6, "pt"))  + 
-    scale_color_manual(labels = c("0.674", "0.741", "0.773", "0.779", "0.784",
-                                  " 0.787", " 0.796", "0.804"),
-                       values = rainbow(8)) + guides(fill = "none")
+    fill = contribs, ), scale = "width", alpha = 0.30) + theme(legend.position = "none", 
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), 
+    axis.title.x = element_blank(), axis.title.y = element_blank(),axis.line = element_line(colour = "black"),
+    axis.text = element_text(size=12)) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8",
+    "#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fn_4_dataEightCombined_df, aes(x=as.numeric(contribs),
+    y = value, color = variable)) + geom_line(data = fn_4_dataEightCombined_df, 
+    aes(x=as.numeric(contribs), y = value, color = variable)) +
+    scale_color_manual(values = rainbow(8)) + guides(fill = "none") + 
+    scale_y_continuous(trans = "log10", labels = label_number(accuracy = 0.01))  
 }
-# View the violin plot, y-scale is linear 
+# View the violin plot, y-axis is log scale, no axes text, no legend 
 fn_4_plot 
-# turns the y-axis into log scale, changes format of y-axis labels, and removes axes titles and legend
-fn_4_plot =fn_4_plot + scale_y_continuous(trans = "log10", labels = label_number(accuracy = 0.01))  + labs(y=expression("Power"), 
-   x = expression("Number of Contributors")) + theme(legend.position = "none", axis.title.x = element_blank(), axis.title.y = element_blank(), axis.text.x = element_blank())
-# View the final version of the violin plot 
-fn_4_plot 
-
+                              
 # False Negative Rate Distribution Violin Plot when Threshold is < 1M
 fn_6_plot <- {
   ggplot() + geom_violin(data = fn_df_6, aes(x= as.numeric(contribs), y = value, 
-                                             fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + ylab("Power") + 
-    theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-          panel.background = element_blank(), 
-          axis.line = element_line(colour = "black")) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) +
-    geom_point(data = fn_6_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-    geom_line(data = fn_6_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-    xlab("Number of Contributors") + ylab("Power") + labs(colour = "Genetic Diversity", size = 4) +
-    theme(text = element_text(size = 12), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),
-          axis.text = element_text(size = 12), legend.position = c(0.40,0.30), legend.text = element_text(size =12), legend.title = element_text(size = 12), legend.box.background = element_rect(color = "black", size = 1), 
-          legend.key = element_rect(fill = "white"), legend.key.height = unit(6, "pt"))  + 
-    scale_color_manual(labels = c("0.674", "0.741", "0.773", "0.779", "0.784",
-                                  " 0.787", " 0.796", "0.804"),
-                       values = rainbow(8)) + guides(fill = "none")
+  fill = contribs, ), scale = "width", alpha = 0.30) + theme(legend.position = "none", 
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), 
+  axis.line = element_line(colour = "black"), axis.title.x = element_blank(), axis.title.y = element_blank(),
+  axis.text = element_text(size = 12)) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8",
+  "#BCE4D8")) + geom_point(data = fn_6_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
+  geom_line(data = fn_6_dataEightCombined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
+  scale_color_manual(values = rainbow(8)) + guides(fill = "none") +
+  scale_y_continuous(trans = "log10", labels = label_number(accuracy = 0.01))
 }
-# View the violin plot, y-scale is linear 
+# plot has y-axis in log scale 
 fn_6_plot 
-# turns the y-axis into log scale, changes format of y-axis labels, and removes axes titles and legend
-fn_6_plot =fn_6_plot + scale_y_continuous(trans = "log10", labels = label_number(accuracy = 0.01)) + labs(y=expression("Power"), 
-  x = expression("Number of Contributors")) + theme(legend.position = "none", axis.title.x = element_blank(),
-  axis.title.y = element_blank())
-# View the final version of the plot 
-fn_6_plot 
-
+                              
 # Combine all FNR plots into one panel plot, 4 rows x 1 column 
 fn_threshold_plots <- plot_grid(fn_0_plot,fn_2_plot,fn_4_plot, fn_6_plot, nrow = 4, align = "v") 
 # add common y-axis title 
