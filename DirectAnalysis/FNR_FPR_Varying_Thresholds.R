@@ -320,9 +320,7 @@ fn_threshold_plots<- grid.arrange(fn_threshold_plots, left = "False Negative Rat
 not_in_mix_matrix <- readRDS("Direct_not_in_mix_3dresults_051724.RDS") 
 #turns -INFS into -10000, allows values to be graphed
 not_in_mix_matrix[not_in_mix_matrix == -Inf] = -10000 
-# represents different LR thresholds to calculate false positive rate (FPR), log LRs are being used
-## to calculate the FPR -- "0" = 1, "2" = 100, "4" = 10k, 6" = 1M  
-thresholds = c(0,2,4,6) 
+                              
 # this for loop will fill an empty matrix with FPRs of varying thresholds 
 for(threshold in thresholds) {
   # create a new matrix for each threshold 
@@ -527,29 +525,21 @@ FPR_6_quantile_pops <- {
 # False Positive Rate Distribution Plot when Threshold is > 1
 fpr_0_plot <- {
   ggplot() + geom_violin(data = FPR_df_0, aes(x=as.numeric(contribs), y = value, 
-  fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") +
-   ylab("False positive rate") + theme(legend.position = "none", panel.grid.major = element_blank(), 
-  panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "black"), 
-  plot.background = element_rect("white")) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8",
-  "#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fpr_0_combined_df, aes(x=as.numeric(contribs), 
-  y = value, color = variable)) + geom_line(data = fpr_0_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-  xlab("Number of Contributors") + ylab("False Positive Rate") + labs(colour = "Genetic Diversity", 
-  size = 4) + theme(text = element_text(size = 12), panel.grid.major = element_blank(), 
-  panel.grid.minor = element_blank(), panel.background = element_blank(),axis.line = element_line(colour = "black"), 
-  axis.text = element_text(size = 12, colour = "black"), legend.position = "none", legend.text = element_text(size =12,
-  color = "black"), legend.title = element_text(color= "black" , size = 12), legend.box.background = element_rect(color = "black", 
-  size = 1), legend.background = element_rect(fill = "white", color = NA),legend.key = element_rect(fill = "white"),
-  legend.key.height = unit(8, "pt"), axis.title.x = element_text(colour = "black"), axis.title.y = element_text(color = "black"))  + 
-  scale_color_manual(labels = c("0.674", "0.763", "0.772", "0.778", "0.782",
-  " 0.785", " 0.788", "0.804"), values = rainbow(8)) + guides(fill = "none")
+  fill = contribs, ), scale = "width", alpha = 0.30) + theme(legend.position = "none",
+  panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+  panel.background = element_blank(), axis.line = element_line(colour = "black"), 
+  plot.background = element_rect("white"), axis.text = element_text(size = 12)) + 
+  scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8",
+  "#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fpr_0_combined_df, 
+  aes(x=as.numeric(contribs), y = value, color = variable)) + geom_line(data = fpr_0_combined_df, 
+  aes(x=as.numeric(contribs), y = value, color = variable)) +
+  theme(text = element_text(size = 12), panel.grid.major = element_blank(), 
+  panel.grid.minor = element_blank(), panel.background = element_blank(),
+  axis.line = element_line(colour = "black"),axis.text = element_text(size = 12, colour = "black"), 
+  legend.position = "none", axis.title.x = element_blank(), axis.title.y = element_blank())  + 
+  scale_color_manual(values = rainbow(8)) + guides(fill = "none") + 
+  scale_y_continuous(trans = "log10",labels = scientific_10) 
 }
-# View the plot, y-axis scale is linear 
-fpr_0_plot 
-# makes the y-axis log scale, changes y-axis texts, removes legend and axes titles 
-fpr_0_plot = fpr_0_plot + scale_y_continuous(trans = "log10",labels = scientific_10) + 
-  labs(y=expression(atop("False Positive Rate")),x = expression("Number of Contributors")) + 
-  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
-  axis.text.x = element_blank())
 # view the final plot 
 fpr_0_plot
 
@@ -558,30 +548,18 @@ fpr_2_plot <- {
   ggplot() + geom_violin(data = FPR_df_2, aes(x=as.numeric(contribs), y = value, 
   fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + 
   ylab("False positive rate") +theme(legend.position = "none", panel.grid.major = element_blank(),
-  panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black"),
-  plot.background = element_rect("white")) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8",
-  "#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fpr_2_combined_df, aes(x=as.numeric(contribs), 
-  y = value, color = variable)) + geom_line(data = fpr_2_combined_df, aes(x=as.numeric(contribs), y = value, 
-  color = variable)) + xlab("Number of Contributors") + ylab("False Positive Rate") + labs(colour = "Genetic Diversity", 
-  size = 4) + theme(text = element_text(size = 12), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-  panel.background = element_blank(),axis.line = element_line(colour = "black"), axis.text = element_text(size = 12, 
-  colour = "black"),legend.position = "none", legend.text = element_text(size =12, color = "black"), 
-  legend.title = element_text(color= "black" , size = 12), legend.box.background = element_rect(color = "black",
-  size = 1), legend.background = element_rect(fill = "white", color = NA), legend.key = element_rect(fill = "white"),
-  legend.key.height = unit(8, "pt"), axis.title.x = element_text(colour = "black"),
-  axis.title.y = element_text(color = "black"))  + scale_color_manual(labels = c("0.674", "0.763", 
-  "0.772", "0.778", "0.782", "0.785", " 0.788", "0.804"),
-  values = rainbow(8)) + guides(fill = "none")
+  panel.grid.minor = element_blank(),panel.background = element_blank(), 
+  axis.line = element_line(colour = "black"), plot.background = element_rect("white"),
+  axis.text = element_text(size = 12, colour = "black"), axis.title.x = element_blank(),
+  axis.title.y = element_blank()) + scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8",
+  "#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fpr_2_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) + 
+  geom_line(data = fpr_2_combined_df, aes(x=as.numeric(contribs), y = value, 
+  color = variable))  + scale_color_manual(values = rainbow(8)) + 
+  guides(fill = "none")  + scale_y_continuous(trans = "log10",
+  labels = scientific_10, breaks = scales::pretty_breaks(n=2))
 }
-# View the plot, y-axis is linear scale 
+# View the final plot, y-axis is log scaled 
 fpr_2_plot 
-# makes the y-axis log scaled, changes the y-axis labels, and removes the axes titles and legend 
-fpr_2_plot = fpr_2_plot + scale_y_continuous(trans = "log10",labels = scientific_10, 
-  breaks = scales::pretty_breaks(n=2)) + labs(y=expression(atop("False Positive Rate")),
-  x = expression("Number of Contributors"))  + theme(axis.title.x = element_blank(),
-  axis.title.y = element_blank(), axis.text.x = element_blank())
-# view the final plot
-fpr_2_plot
 
 # False Positive Rate when Threshold is > 10K
 fpr_4_plot <- {
@@ -589,29 +567,16 @@ fpr_4_plot <- {
   fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + 
   ylab("False positive rate") + theme(legend.position = "none", panel.grid.major = element_blank(), 
   panel.grid.minor = element_blank(),panel.background = element_blank(), 
-  axis.line = element_line(colour = "black"), plot.background = element_rect("white")) + 
+  axis.line = element_line(colour = "black"), plot.background = element_rect("white"),
+  axis.title.x = element_blank(), axis.title.y = element_blank(),
+  axis.text = element_text(size = 12)) + 
   scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) +
   geom_point(data = fpr_4_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
   geom_line(data = fpr_4_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-  xlab("Number of Contributors") + ylab("False Positive Rate") + labs(colour = "Genetic Diversity", 
-  size = 4) +theme(text = element_text(size = 12), panel.grid.major = element_blank(), 
-  panel.grid.minor = element_blank(),panel.background = element_blank(),
-  axis.line = element_line(colour = "black"),axis.text = element_text(size = 12, 
-  colour = "black"),legend.position = "none", legend.text = element_text(size =12, 
-  color = "black"), legend.title = element_text(color= "black" , size = 12), 
-  legend.box.background = element_rect(color = "black", size = 1), legend.background = element_rect(fill = "white", 
-  color = NA),legend.key = element_rect(fill = "white"), legend.key.height = unit(8, "pt"), 
-  axis.title.x = element_text(colour = "black"), axis.title.y = element_text(color = "black")) + 
-  scale_color_manual(labels = c("0.674", "0.763", "0.772", "0.778", "0.782",
-  "0.785", " 0.788", "0.804"), values = rainbow(8)) + guides(fill = "none")
+  scale_color_manual(values = rainbow(8)) + guides(fill = "none") +
+    scale_y_continuous(trans = "log10", labels = scientific_10)  
 }
-# view plot, y-axis is linear scale
-fpr_4_plot
 # makes y-axis log scale, changes y-axis labels, and removes the legend and axes titles
-fpr_4_plot = fpr_4_plot + scale_y_continuous(trans = "log10", labels = scientific_10) + 
-  labs(y=expression(atop("False Positive Rate")), x = expression("Number of Contributors")) + 
-  theme(axis.title.x = element_blank(),axis.title.y = element_blank(), axis.text.x = element_blank())
-# view the final plot 
 fpr_4_plot
 
 # False Positive Rate Distribution plot when threshold is > 1M
@@ -620,32 +585,18 @@ fpr_6_plot <- {
   fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + 
   ylab("False positive rate") + theme(legend.position = "none", panel.grid.major = element_blank(),
   panel.grid.minor = element_blank(),panel.background = element_blank(), 
-  axis.line = element_line(colour = "black"), plot.background = element_rect("white")) + 
+  axis.line = element_line(colour = "black"), plot.background = element_rect("white"),
+  axis.text = element_text(size=12), axis.title.x = element_blank(), axis.title.y = element_blank()) + 
   scale_fill_manual(values = c("#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) +
   geom_point(data = fpr_6_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
   geom_line(data = fpr_6_combined_df, aes(x=as.numeric(contribs), y = value, color = variable)) +
-  xlab("Number of Contributors") + ylab("False Positive Rate") + labs(colour = "Genetic Diversity", 
-  size = 4) +theme(text = element_text(size = 12), panel.grid.major = element_blank(), 
-  panel.grid.minor = element_blank(),panel.background = element_blank(),
-  axis.line = element_line(colour = "black"), axis.text = element_text(size = 12, colour = "black"),
-  legend.position = "none", legend.text = element_text(size =12, color = "black"), 
-  legend.title = element_text(color= "black" , size = 12), legend.box.background = element_rect(color = "black", 
-  size = 1), legend.background = element_rect(fill = "white", color = NA),
-  legend.key = element_rect(fill = "white"), legend.key.height = unit(8, "pt"), 
-  axis.title.x = element_text(colour = "black"),axis.title.y = element_text(color = "black"))  + 
-  scale_color_manual(labels = c("0.674", "0.763", "0.772", "0.778", "0.782",
-  " 0.785", " 0.788", "0.804"), values = rainbow(8)) + guides(fill = "none")
+  scale_color_manual(values = rainbow(8)) + guides(fill = "none") +
+  scale_y_continuous(trans = "log10", labels = scientific_10, 
+  breaks = scales::pretty_breaks(n=2))
 }
-# view the plot, y-axis is linear 
-fpr_6_plot
 # makes the y-axis log scaled, changes y-axis text, removes axes titles and legend
-fpr_6_plot = fpr_6_plot + scale_y_continuous(trans = "log10", labels = scientific_10, 
- breaks = scales::pretty_breaks(n=2)) + labs(y=expression(atop("False Positive Rate")), 
- x = expression("Number of Contributors"))  + theme(axis.title.x = element_blank(),
- axis.title.y = element_blank())
-# View the final plot 
 fpr_6_plot
-
+                              
 # combine all of the fpr plots into one panel plot with 4 rows and 1 column
 fpr_threshold_plots <- plot_grid(fpr_0_plot,fpr_2_plot,fpr_4_plot,fpr_6_plot, 
   nrow =4, ncol = 1, align = "v")
