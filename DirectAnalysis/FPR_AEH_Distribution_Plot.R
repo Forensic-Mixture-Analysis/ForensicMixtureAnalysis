@@ -37,13 +37,12 @@ for (i in 1:dim(FPR_matrix)[1]) { # rows
 # load AEH and group names 
 informed_consent = read_csv("Informed_Consent_AEHs.csv")
 #informed_consentGD = informed_consent[,2]
-######### SUBSET DATA TO ONLY INCLUDE INFORMED CONSENT POPULATIONS ################
+
 # turn the FPR matrix into a DF
 FPR_DF <- as.data.frame(FPR_matrix) 
 # assign column names 
 colnames(FPR_DF) <- c(c(2,3,4,5,6)) 
 #FPR_DF
-#nm_informed_combined$AEH = informed_consentGD
 FPR_DF$AEH = informed_consent$`Average Expected Heterozygosity`
 ############################### CREATE SCATTERPLOT ###################################################
 # scatter distribution plot of mixture w/ 2 contributors vs AEH 
@@ -107,7 +106,8 @@ AEH_SP5 <- ggplot(data = FPR_DF, aes(x =FPR_DF[,6],  y = FPR_DF[,5])) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 # view the final plot 
 AEH_SP5 
-# comobine all plots into one panel plot with 1 column and 5 rows 
+
+# combine all plots into one panel plot with 1 column and 5 rows 
 unified_plot <- plot_grid(AEH_SP1,AEH_SP2,AEH_SP3, AEH_SP4, AEH_SP5, 
                    nrow =5, align = "hv")
 # view the unified plot 
