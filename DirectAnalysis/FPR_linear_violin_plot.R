@@ -18,11 +18,15 @@ load_libraries <- {library(ggplot2)
   library(ggpubr)
   library(scales) 
 }
-########################## LOAD POI- (not included in mix) DATA #################
+########################## LOAD NECESSARY FILES #############################
 # read in RDS file
 not_in_mix_matrix <- readRDS("Direct_not_in_mix_3dresults_051724.RDS") 
 #turns -INFS into -10000
 not_in_mix_matrix[not_in_mix_matrix == -Inf] = -10000 
+# load in the informed consent file
+informed_consent = read_csv("Informed_Consent_AEHs.csv")
+# filter the data alphabetically
+informed_consent = informed_consent[order(informed_consent$...1),]
 ######################## BUILD DATA FRAME #####################################
 # Creating matrix: x is # of contributors, y is population
 # nrows = number of pops used
@@ -38,10 +42,6 @@ FPR_DF <- as.data.frame(FPR_matrix)
 # assign column names 
 colnames(FPR_DF) <- c(c(2,3,4,5,6)) 
 #FPR_DF
-# load in the informed consent file
-informed_consent = read_csv("Informed_Consent_AEHs.csv")
-# filter the data alphabetically
-informed_consent = informed_consent[order(informed_consent$...1),]
 # subset to only include group AEH & assign AEH as row names for FPR_DF 
 rownames(FPR_DF) = informed_consent$`Average Expected Heterozygosity`
 #informed_consent$`Average Expected Heterozygosity`
@@ -94,19 +94,16 @@ buildEight <- {
 fpr_plot <- {
   ggplot() + geom_violin(data = FPR_DF, aes(x= as.numeric(contribs), y = value, 
   fill = contribs, ), scale = "width", alpha = 0.30) +  xlab("Number of contributors") + 
-  ylab("False Positive Rate") + theme(legend.position = "none", panel.grid.major = element_blank(), 
+  ylab("False Positive Rate") + theme(panel.grid.major = element_blank(), 
   panel.grid.minor = element_blank(),panel.background = element_blank(), 
-  axis.line = element_line(colour = "black")) + scale_fill_manual(values = c("#BCE4D8",
+  axis.line = element_line(colour = "black"),text = element_text(size = 12),
+  axis.text = element_text(size = 12),legend.position = c(0.25,0.80),
+  legend.text = element_text(size =12),legend.title = element_text(size = 12),
+  legend.box.background = element_rect(color = "black", size = 0.6),legend.key = element_rect(fill = "white"),
+  legend.key.height = unit(2, "pt")) + scale_fill_manual(values = c("#BCE4D8",
   "#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8","#BCE4D8")) + geom_point(data = fpr_combined_df, 
   aes(x=as.numeric(contribs), y = value, color = variable)) + geom_line(data = fpr_combined_df, 
-  aes(x=as.numeric(contribs), y = value, color = variable)) + xlab("Number of Contributors") +
-  ylab("False Positive Rate") + labs(colour = "Genetic Diversity",size = 1) + 
-  theme(text = element_text(size = 12), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-  panel.background = element_blank(),axis.line = element_line(colour = "black"),
-  axis.text = element_text(size = 12), legend.position = c(0.25,0.80),
-  legend.text = element_text(size =12), legend.title = element_text(size = 12),
-  legend.box.background = element_rect(color = "black", size = 0.6), 
-  legend.key = element_rect(fill = "white"), legend.key.height = unit(2, "pt")) + 
+  aes(x=as.numeric(contribs), y = value, color = variable)) + labs(colour = "Genetic Diversity",size = 1) +   
   scale_color_manual(labels = c("0.674", "0.741", "0.773", "0.779", "0.784",
   " 0.787", " 0.796", "0.804"), values = rainbow(8)) + guides(fill = "none") 
 }
