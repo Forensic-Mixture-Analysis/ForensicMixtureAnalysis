@@ -57,3 +57,116 @@ size of the heatmap may need to be adjusted due to the addition of the dendrogra
 
 *Note that for the InMix_Heatmaps.R script, the logic is the same as above, except we are calculating for instances where log(LR) < 0,
 and instead of false positive rate, we are calculating Power. 
+
+######################################################################################################################################
+
+This section is the README for the following script:
+
+FPR_FST_scatterplot.R
+
+Function: The purpose of this script is to visualize the misspecified reference group results, specifically 
+to examine if the FST between the simulation group and the reference group may correlate with FPRs. 
+The script takes as input a matrix of FST values between all groups conducted in the study. It identifies which
+groups are used in the analysis and reads the results from those analyses. For a given
+set of misspecified reference group simulations, it calculates the percentage of simulations where the log(LR)
+was greater than 0 (in other words, the false positive rate). This process repeats until all results are read in,
+then compiled into a single dataframe. Groups are renamed to their respective genetic diversity values, then the
+dataframe is converted to an array. What is different about this script from the above scripts is that it is producing
+a scatterplot where every point is the FPR of a simulation group with a misspecified reference group. The x-axis
+is the FST value between the groups, meaning that there will always be two points exactly vertical to each other
+(this is because for one point, one group is the simulation group and the other group is the misspecified reference group,
+while the other point is the reverse). Lastly, groups are color coded by the genetic diversity of the simulation group,
+and the shapes of the points indicate whether the simulation group or the reference group has higher genetic diversity.
+
+###UNDERSTANDING THE SCRIPT###
+
+#Setup#
+In order to run the script, the following packages are required:
+stringr
+reshape2
+tidyverse
+tidyr
+ggplot2
+ggdendro
+grid
+gridExtra
+cowplot
+
+The following files are required:
+FSTarray - a matrix where the rows and columns are the groups and the cells are their respective FST values.
+informed_consent_groups - this is a file that specifies which groups have given informed consent.
+pops_26 - this is a file that trims down teh informed consent group list to the ones used for the misspecified
+reference group analysis.
+pops_aeh_sorted - this is a file that has all the groups organized by their genetic diversities.
+
+Creating the dataframe:
+The script first loads the packages and then sets the correct directory. It identifies the groups of interest, then gathers
+the results of the analysis one simulation group at a time. This is done by reading in one file at a time, calculating the 
+false positive rate by summing all log(LR) > 0, then dividing by the total number of simulations. After storing the results,
+it moves on to the next simulation group until the results of all simulation groups are compiled. Lastly, the results are converted
+into a matrix.
+
+Renaming the groups:
+Groups are renamed to their respective genetic diversities, and the genetic diversities are shortened to 5 significant figures.
+
+Data prep for the scatterplot:
+The matrix is converted to an array using the pivot_longer() function. 
+
+Calculating the difference in genetic diversity:
+Next, the script calculates the difference in genetic diversity between a group comparison, and reassigns this with a binary value
+to indicate which group had higher genetic diversity.
+
+Creating the scatterplot:
+A scatterplot can now be made using ggplot2's geom_point function. Note that there are a few variations to the visualization
+left in the script, such as removing the color to show the genetic diversity of the simulation group or including a trendline.
+Also, there was some difficulty with finalizing the legend to show all that was represented in the scatterplot, so a different
+software was used to finalilze that.
+
+######################################################################################################################################
+
+This section is the README for the following scripts:
+
+InMix_Boxplots.R
+NotInMix_Jitterplots.R
+
+Function: The purpose of these scripts are to compare the highest and lowest genetic diversity groups in terms of their
+log(LRs), across 2-6 contributors. It takes the individual simulations (when the reference group is correctly specified
+as well as when it is not) for each number of contributors, and plots the distribution of log(LRs). A large dataframe
+is created to store all the results of each type of simulation, and finally a boxplot (for the POI+ results) or a jitterplot
+(for the POI- results) is generated.
+
+###UNDERSTANDING THE SCRIPT###
+
+#Setup#
+In order to run the script, the following packages are required:
+stringr
+reshape2
+tidyverse
+tidyr
+ggplot2
+ggdendro
+grid
+gridExtra
+cowplot
+
+The following files are required:
+The simulation results from the highest and lowest genetic diversity groups, POI+ or POI-, depending on which script you are using.
+
+Creating the dataframe:
+The script is designed to read the data specifically needed, for instance for the correctly specified reference group simulations,
+the results are all stored in one file and it is vital that the correct dimensions are specified to extract the correct results.
+On the other hand, the misspecified reference group simulations results are stored in individual files and therefore need to be
+individually accessed. Be careful to specify the correct number of contributors and groups, as well as which group is the
+misspecified reference group.
+
+The number of simulations are different for correctly specified reference group simulations and misspecified reference group simulations.
+Thus, the script builds the dataframe by creating specific number of rows for each set of simulations (100,000 rows for each 
+correctly specified reference group simulation, and 10,000 rows for each misspecified reference group simulation). Once
+the results are all compiled, extra columns are added to label and distinguish the results from one another.
+
+Importantly, for the POI- simulations, we exclude the log(LRs) that are less than or equal to 0 because we want to visualize
+the distribution of positive log(LRs).
+
+Creating the boxplots/jitterplots:
+A boxplot/jitterplot can now be made using ggplot2's geom_boxplot/geom_point function. The colors indicate which
+type of comparison is being represented, and the x-axis displays the number of contributors present in a simulation.
