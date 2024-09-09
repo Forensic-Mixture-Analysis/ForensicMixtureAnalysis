@@ -1,7 +1,7 @@
 ###READ ME - Cross Analysis Data Visualization Scripts###
 
 This section is the README for the following scripts:
-Cross_Analysis_Heatmap.R
+Incorrect_Reference_Heatmap.R
 FBI_FPR_Heatmaps.R
 InMix_Heatmaps.R*
 
