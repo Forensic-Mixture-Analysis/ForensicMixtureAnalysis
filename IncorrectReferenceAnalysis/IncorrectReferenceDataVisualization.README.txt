@@ -1,4 +1,4 @@
-###READ ME - Cross Analysis Data Visualization Scripts###
+###READ ME - Incorrect Reference Analysis Data Visualization Scripts###
 
 This section is the README for the following scripts:
 Incorrect_Reference_Heatmap.R
