@@ -45,10 +45,15 @@ are 6 main parameters the user must enter. For this script only direct simulatio
 where the refrence population is the same as the simulation population.
 
 `-t` - (int) Type of simualtion to preform. 0 - not in mix , 1 - in-mix
+
 `-p` - (int) Population to preform simualtion on, must be between 1-83
+
 `-s` - (int) Number of simualtions to run
+
 `-c` - (int) Number of contributors to run
+
 `-r` - (int) Random seed 
+
 `-o` - (str) output prefix for the results
 
 ```{bash}
@@ -92,10 +97,15 @@ used for LTA simulations. This rscript should be interacted with the command lin
 are 6 main parameters the user must enter. 
 
 `-t` - (int) Type of simualtion to preform. 0 - not in mix , 1 - in-mix
+
 `-p` - (int) Population to preform simualtion on, must be between 1-26
+
 `-s` - (int) Number of simualtions to run
+
 `-c` - (int) Number of contributors to run
+
 `-r` - (int) Random seed 
+
 `-o` - (str) output prefix for the results
 
 ```{bash}
